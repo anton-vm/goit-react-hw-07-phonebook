@@ -22,13 +22,6 @@ const ContactList = () => {
   }
 
 
-
-
-
-console.log(filter)
-console.log(contacts)
- 
-
   return (
     <>
       {contacts.length > 2 ? (

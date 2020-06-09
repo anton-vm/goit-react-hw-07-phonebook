@@ -1,11 +1,8 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
 import {toast} from 'react-toastify';
-import { v4 as uuidv4 } from "uuid";
-import {addContact} from '../../redux/action/contacts'
 import {asyncAddContact} from '../../redux/action/actionContacts'
 import {useDispatch, useSelector} from 'react-redux'
-
 
 
 const AddContactForm = () => {
@@ -16,7 +13,6 @@ const AddContactForm = () => {
   const dispatch = useDispatch()
   const contacts = useSelector((state) => state.contacts)
 
-  console.log(contacts)
 
   const inputValue = (e) => {
     const { name, value } = e.target;
