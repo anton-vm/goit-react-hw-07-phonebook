@@ -4,6 +4,7 @@ import {CSSTransition, TransitionGroup } from 'react-transition-group'
 import {connect, useSelector, useDispatch} from 'react-redux'
 import {deleteContact} from '../../redux/action/contacts'
 import {asyncDeleteContact, asyncLoadStorage} from '../../redux/action/actionContacts'
+import {filteredArrSelector, filterSelector, contactsSelector} from '../../redux/selectors/index'
 
 const ContactList = () => {
 
@@ -13,20 +14,17 @@ const ContactList = () => {
     dispatch(asyncLoadStorage())
       }, [])
 
-  const contacts = useSelector((state) => state.contacts)
-  const filter = useSelector((state) => state.filterState)
- 
- 
-  const filteredArr = () => {
-    return contacts.filter(el => el.name.toLowerCase().includes(filter))
-  }
 
+  const contacts = useSelector((state) => contactsSelector(state))
+  const filter = useSelector((state) => filterSelector(state))
+  const arrFiltered = useSelector((state) => filteredArrSelector(state))
+ 
 
   return (
     <>
       {contacts.length > 2 ? (
         <TransitionGroup component="ul" className="list">
-          {filteredArr().map((el) => (
+          {arrFiltered.map((el) => (
             <CSSTransition classNames="listItem" timeout={300} key={el.id}>
             <li  className='listItem'>
             <div className="listName">{el.name}</div> <div className="listName">{el.number}</div> 
@@ -37,7 +35,7 @@ const ContactList = () => {
         </TransitionGroup>
       ) : (
         <TransitionGroup component="ul" className="list" >
-          {filteredArr().map((el) => (
+          {arrFiltered.map((el) => (
             <CSSTransition classNames="listItem" timeout={300}>
             <li key={el.id} className='listItem'>
               <div className="listName">{el.name}</div> <div className="listName">{el.number}</div> 
